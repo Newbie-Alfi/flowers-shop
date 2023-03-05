@@ -1,23 +1,14 @@
 import { IFlowerResponse } from "@entities/Flower/api/models";
-// import { Link, useNavigate } from "react-router-dom";
 import {
   Typography,
   CardContent,
-  // Tooltip,
   CardMedia,
-  // Box,
   Card,
   CardProps,
   CardActionArea,
-  // Accordion,
-  // AccordionSummary,
-  // AccordionDetails,
 } from "@mui/material";
 import { BACKEND_URL } from "@shared/api/config";
 import { getRealPrice } from "../../utils";
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-// import moment from "moment";
-// import map from "../assets/images/map.png";
 
 export interface IFlowerCardProps extends CardProps {
   flower: IFlowerResponse;
@@ -38,7 +29,7 @@ export function FlowerCard(props: IFlowerCardProps) {
     return undefined;
   })();
 
-  // TODO: AHHAHAHAHAHAHHAHAHAH КОСТЫЛЬ АХАХХАХАХАХАХ
+  // TODO: I think u r understand why is on the todo
   const image = img.includes(BACKEND_URL) ? img : BACKEND_URL + img;
 
   return (
@@ -62,11 +53,3 @@ export function FlowerCard(props: IFlowerCardProps) {
     </Card>
   );
 }
-
-/*
-  Added to basket
-  Change number of flowers
-  Order flower
-  Filter flowers
-  Auth-store
-*/
