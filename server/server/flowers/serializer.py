@@ -28,8 +28,6 @@ class FlowerSerializer(serializers.ModelSerializer):
 class BasketSerializer(serializers.ModelSerializer):
     flower = FlowerSerializer(source="flower_id")
 
-    print(flower)
-
     class Meta:
         model = Basket
         fields = ("flower", "number")
