@@ -31,5 +31,8 @@ class Basket(models.Model):
         Flower, on_delete=models.CASCADE)
     number = models.IntegerField(default=1)
 
+    class Meta:
+        unique_together = ('user', 'flower_id',)
+
     def __str__(self):
         return self.user.username + " - " + self.flower_id.name
