@@ -7,8 +7,6 @@ import {
   Box,
   Typography,
   Container,
-  FormControlLabel,
-  Checkbox,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link, useNavigate } from "react-router-dom";
@@ -63,10 +61,6 @@ export default function SignInPage() {
             label="Пароль"
             type="password"
             id="password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Запомнить меня"
           />
           <Button
             type="submit"
