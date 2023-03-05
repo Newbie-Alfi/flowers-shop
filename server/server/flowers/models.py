@@ -32,4 +32,4 @@ class Basket(models.Model):
     number = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.user.username + " - " + self.flower.name
+        return self.user.username + " - " + self.flower_id.name
