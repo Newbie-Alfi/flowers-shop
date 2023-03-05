@@ -26,9 +26,9 @@ class Flower(models.Model):
 
 class Basket(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True)
+        User, on_delete=models.CASCADE)
     flower_id = models.ForeignKey(
-        Flower, on_delete=models.CASCADE, blank=True, null=True)
+        Flower, on_delete=models.CASCADE)
     number = models.IntegerField(default=1)
 
     def __str__(self):
