@@ -9,7 +9,13 @@ export const basketApi = () => {
   const getOne = (name: string, params?: AxiosRequestConfig) =>
     auth.get<IBasketItemResponse>(`"basket"/${name}`, params);
 
-  const add = (id: number) => auth.post("basket/", id);
+  const add = (id: number) => {
+    const data = new FormData();
+
+    data.set("flower_id", `${id}`);
+
+    auth.post("basket/", data);
+  };
 
   return { list, getOne, add };
 };
