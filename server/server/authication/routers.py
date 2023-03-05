@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 app_name = "authication"
 
-auth_urlpatterns = [
+urlpatterns = [
     path('login/', MyObtainTokenPairView.as_view(),  # type: ignore
          name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(),  # type: ignore
