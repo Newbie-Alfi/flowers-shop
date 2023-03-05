@@ -1,7 +1,8 @@
-import { ACCESS_TOKEN_KEY, authApi, REFRESH_TOKEN_KEY } from "@shared/api/auth";
+import { ACCESS_TOKEN_KEY, authApi } from "@shared/api/auth";
 import { makeAutoObservable } from "mobx";
 
 export class AuthStore {
+  // TODO: Бред
   isAuthicated = !!localStorage.getItem(ACCESS_TOKEN_KEY);
 
   constructor() {
@@ -9,7 +10,7 @@ export class AuthStore {
   }
 
   login = async (data: FormData) => {
-    authApi().signIn(data);
+    await authApi().signIn(data);
 
     this.isAuthicated = true;
   };
