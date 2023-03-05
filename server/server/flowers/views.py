@@ -1,10 +1,12 @@
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from rest_framework import status
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from .filters import FlowerFilter, BasketFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Flower, Basket, Sale
-from .serializer import FlowerSerializer, SaleSerializer, BasketSerializer
+from .serializer import FlowerSerializer, SaleSerializer, BasketSerializer, BasketCreateSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from django.shortcuts import render
@@ -33,22 +35,20 @@ class BasketView(ModelViewSet):
         return self.get_paginated_response(serializer.data)
 
     def create(self, request):
+        user_id = User.objects.get(username=request.user).id
 
-        queryset = {
-            user: User.objects.get(username=request.user).id,
-            flower: request.POST,
-            number: 1,
-        }
+        if user_id is None:
+            raise PermissionDenied
 
+        queryset = request.data
+        queryset._mutable = True
+        queryset['user'] = user_id
 
-        print(flower)
-        serializer = BasketSerializer(queryset, many=False)
-        if serializer.is_valid():
-                serializer.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-# class SaleView(ReadOnlyModelViewSet):
-#     queryset = Sale.objects.all()
-#     serializer_class = SaleSerializer
+        serializer = BasketCreateSerializer(data=queryset, many=False)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
 
 class FlowerView(ReadOnlyModelViewSet):
@@ -56,5 +56,3 @@ class FlowerView(ReadOnlyModelViewSet):
     serializer_class = FlowerSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = FlowerFilter
-    # permission_classes = [IsAuthenticated]
-    # pagination_class =

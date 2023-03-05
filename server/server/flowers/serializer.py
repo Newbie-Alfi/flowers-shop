@@ -25,6 +25,12 @@ class FlowerSerializer(serializers.ModelSerializer):
     #     return request.build_absolute_uri(photo_url)
 
 
+class BasketCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Basket
+        fields = "__all__"
+
+
 class BasketSerializer(serializers.ModelSerializer):
     flower = FlowerSerializer(source="flower_id")
 
