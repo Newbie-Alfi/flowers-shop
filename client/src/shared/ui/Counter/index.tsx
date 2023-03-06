@@ -1,4 +1,11 @@
-import { CardProps, Button, Typography, Box, Input } from "@mui/material";
+import {
+  CardProps,
+  Button,
+  Typography,
+  Box,
+  Input,
+  Tooltip,
+} from "@mui/material";
 import { useMemo } from "react";
 import { useReducer } from "react";
 
@@ -45,11 +52,32 @@ export function Counter(props: ICounterProps) {
 
   return (
     <Box display="flex" alignItems="center">
-      <Button onClick={decrement}>-</Button>
-      <Typography sx={{ p: 1 }} variant="h6">
-        {num}
-      </Typography>
-      <Button onClick={increment}>+</Button>
+      <Button
+        variant="outlined"
+        size="small"
+        style={{ minWidth: "24px", width: "24px" }}
+        sx={{ p: 0, m: 0 }}
+        onClick={decrement}
+      >
+        -
+      </Button>
+      {
+        // TODO: компонент вынесен, но при этом текст тултипа только для конкретной страницы
+      }
+      <Tooltip title="Количество товара" placement="top" arrow>
+        <Typography sx={{ mr: 1, ml: 1 }} variant="subtitle1">
+          {num}
+        </Typography>
+      </Tooltip>
+      <Button
+        variant="outlined"
+        size="small"
+        style={{ minWidth: "24px", width: "24px" }}
+        sx={{ p: 0, m: 0 }}
+        onClick={increment}
+      >
+        +
+      </Button>
     </Box>
   );
 }

@@ -1,67 +1,69 @@
-import { styled, useTheme } from "@mui/material/styles";
-import { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { Link, Outlet } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 import {
-  AppBar as MuiAppBar,
+  AppBar,
   Toolbar,
   Box,
-  Grid,
+  Tab,
   Typography,
   Button,
+  Tabs,
 } from "@mui/material";
-// TODO: НЕЛЬЗЯ ИМПОРТИРОВАТЬ С ВЕРХНИХ УРОВНЕЙ ПО ЭТОЙ АРХИТЕКТУРЕ, НО Я СПЕШУ
+// TODO: Импорт в верхних уровней
 import { ROUTE } from "@pages/routes";
-import { authApi } from "@shared/api/auth";
-import { observer } from "mobx-react-lite";
 import { authStore } from "@shared/stores/authStore";
-
-const Main = styled("main")<{
-  open?: boolean;
-}>(({ theme, open }) => ({}));
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
-
-// interface INavbarProps {
-//   //   children: React.ReactNode;
-// }
-
-const AppBar = styled(MuiAppBar, {})<AppBarProps>(({ theme, open }) => ({}));
 
 export const Navbar = observer(() => (
   <Box sx={{ display: "flex" }}>
     <AppBar>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box>
-          <Link to={ROUTE.ABOUT}>
-            <Typography color="white" sx={{ mr: 1 }} variant="button">
-              О нас
-            </Typography>
-          </Link>
-          <Link to={ROUTE.MAIN}>
-            <Typography color="white" sx={{ mr: 1 }} variant="button">
-              Каталог
-            </Typography>
-          </Link>
-          <Link to={ROUTE.SALES}>
-            <Typography color="white" sx={{ mr: 1 }} variant="button">
-              Акции
-            </Typography>
-          </Link>
-          {authStore.isAuthicated && (
-            <Link to={ROUTE.BASKET}>
-              <Typography color="white" sx={{ mr: 1 }} variant="button">
-                Корзина
-              </Typography>
+          <Tabs>
+            <Link to={ROUTE.ABOUT}>
+              <Tab
+                label={
+                  <Typography color="white" sx={{ mr: 1 }} variant="button">
+                    О нас
+                  </Typography>
+                }
+              />
             </Link>
-          )}
+            <Link to={ROUTE.MAIN}>
+              <Tab
+                label={
+                  <Typography color="white" sx={{ mr: 1 }} variant="button">
+                    Каталог
+                  </Typography>
+                }
+              />
+            </Link>
+            <Link to={ROUTE.SALES}>
+              <Tab
+                label={
+                  <Typography color="white" sx={{ mr: 1 }} variant="button">
+                    Акции
+                  </Typography>
+                }
+              />
+            </Link>
+            {authStore.isAuthicated && (
+              <Link to={ROUTE.BASKET}>
+                <Tab
+                  label={
+                    <Typography color="white" sx={{ mr: 1 }} variant="button">
+                      Корзина
+                    </Typography>
+                  }
+                />
+              </Link>
+            )}
+          </Tabs>
         </Box>
         <Box>
           {authStore.isAuthicated ? (
             <Button
               variant="outlined"
-              sx={{ mr: 8, color: "white" }}
+              sx={{ mr: 8 }}
               onClick={() => {
                 authStore.isAuthicated = false;
               }}
@@ -85,13 +87,7 @@ export const Navbar = observer(() => (
         </Box>
       </Toolbar>
     </AppBar>
-    {
-      // TODO: mt: 12 is cringe
-    }
-    <Main sx={{ mt: 8, p: 2 }}>
-      <Grid container spacing={2}>
-        <Outlet />
-      </Grid>
-    </Main>
+
+    <Outlet />
   </Box>
 ));

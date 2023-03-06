@@ -1,25 +1,19 @@
 import { IFlowerResponse } from "@entities/Flower/api/models";
-import {
-  Typography,
-  CardContent,
-  CardMedia,
-  Card,
-  CardProps,
-  CardActionArea,
-} from "@mui/material";
+import { Typography, CardProps, Box, Badge } from "@mui/material";
 import { BACKEND_URL } from "@shared/api/config";
 import { getRealPrice } from "../../utils";
 
 export interface IFlowerCardProps extends CardProps {
   flower: IFlowerResponse;
   children?: React.ReactNode;
+  width?: number | string;
 }
 
 export function FlowerCard(props: IFlowerCardProps) {
   const {
     flower: { name, img, price, sale },
     children,
-    sx,
+    width = 300,
   } = props;
 
   const saleContent = (() => {
@@ -33,23 +27,42 @@ export function FlowerCard(props: IFlowerCardProps) {
   const image = img.includes(BACKEND_URL) ? img : BACKEND_URL + img;
 
   return (
-    <Card {...props} sx={{ ...sx, border: "none" }}>
-      <CardActionArea>
-        <CardMedia
-          sx={{ width: 300, height: 300 }}
-          component="img"
-          image={image}
-          alt={name}
-        />
-      </CardActionArea>
-      <CardContent sx={{ p: "10px", pt: 0 }}>
-        <Typography variant="subtitle1">{name}</Typography>
-        <Typography variant="body1">
-          Цена: {getRealPrice(price, sale)}
-        </Typography>
-        {saleContent && <Typography>{saleContent}</Typography>}
+    <Box>
+      <Box>
+        <Badge
+          badgeContent={saleContent && <Typography>{saleContent}</Typography>}
+          color="error"
+        >
+          <img
+            style={{
+              width,
+              height: 300,
+              borderRadius: 7,
+              objectFit: "cover",
+            }}
+            alt={name}
+            src={image}
+          />
+        </Badge>
+      </Box>
+
+      <Box sx={{ pt: 1 }}>
+        <Box display="flex" alignItems="center">
+          <Typography variant="h6" sx={{ pr: 2 }}>
+            {getRealPrice(price, sale)}р
+          </Typography>
+          {saleContent && (
+            <Typography color="GrayText" variant="subtitle2">
+              <del>{price}р</del>
+            </Typography>
+          )}
+        </Box>
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="caption">{name}</Typography>
+        </Box>
+
         {children}
-      </CardContent>
-    </Card>
+      </Box>
+    </Box>
   );
 }
