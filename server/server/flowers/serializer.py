@@ -36,4 +36,4 @@ class BasketSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Basket
-        fields = ("flower", "number")
+        fields = ("flower", "number", "id")
