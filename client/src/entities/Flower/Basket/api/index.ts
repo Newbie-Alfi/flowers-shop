@@ -1,10 +1,11 @@
 import { AxiosRequestConfig } from "axios";
-import { auth } from "@shared/api/auth/config";
+import { auth } from "@api/auth/config";
+import { IPagination } from "@api/index";
 import { IBasketItemResponse } from "./models";
 
 export const basketApi = () => {
   const list = async (params?: AxiosRequestConfig) =>
-    auth.get<IBasketItemResponse[]>("basket", params);
+    auth.get<IPagination<IBasketItemResponse[]>>("basket", params);
 
   const getOne = async (
     id: IBasketItemResponse["id"],

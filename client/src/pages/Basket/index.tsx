@@ -1,25 +1,18 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import { Grid, Box, Paper, Typography, Button } from "@mui/material";
 import { api } from "@entities/api";
 import { BasketItemCard } from "@entities/Flower/Basket/ui";
-import { IBasketItemResponse } from "@entities/Flower/Basket/api/models";
 import { BasketContext } from "@entities/Flower/Basket/store/hook";
 import { BasketStore } from "@entities/Flower/Basket/store";
+import { useApi } from "@api/index";
 
 const BasketPage = observer(() => {
-  const [basket, setBasket] = useState<IBasketItemResponse[]>([]);
-  const getFlowers = async () => {
-    const response = await api.basket.list();
-
-    setBasket(response.data.results || []);
-  };
-
-  useEffect(() => {
-    getFlowers();
-  }, []);
-
-  const basketStore = useMemo(() => new BasketStore(basket), [basket]);
+  const { value } = useApi(api.basket.list);
+  const basketStore = useMemo(
+    () => new BasketStore(value ? value.data.results : []),
+    [value?.data.results]
+  );
 
   return (
     <BasketContext.Provider value={basketStore}>
