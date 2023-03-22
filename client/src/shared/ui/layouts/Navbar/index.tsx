@@ -14,7 +14,7 @@ import { ROUTE } from "@pages/routes";
 import { authStore } from "@shared/stores/authStore";
 
 export const Navbar = observer(() => (
-  <Box sx={{ display: "flex" }}>
+  <Box>
     <AppBar>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box>
