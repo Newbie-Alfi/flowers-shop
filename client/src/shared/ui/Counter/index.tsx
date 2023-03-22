@@ -1,23 +1,16 @@
-import {
-  CardProps,
-  Button,
-  Typography,
-  Box,
-  Input,
-  Tooltip,
-} from "@mui/material";
-import { useMemo } from "react";
-import { useReducer } from "react";
+import { Button, Typography, Box, Tooltip } from "@mui/material";
+import { useMemo, useReducer } from "react";
 
-export interface ICounterProps extends CardProps {
+export interface ICounterProps {
   number: number;
   min?: number;
   max?: number;
+  // TODO:
   onChange?(value: number): any;
 }
 
 // TODO: set normal config
-/* eslint-ignore */
+/* eslint-disable */
 enum ICounterActions {
   "INCREMENT",
   "DECREMENT",
