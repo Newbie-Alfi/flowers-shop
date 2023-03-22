@@ -5,8 +5,7 @@ export interface ICounterProps {
   number: number;
   min?: number;
   max?: number;
-  // TODO:
-  onChange?(value: number): any;
+  onChange?(value: number): void;
 }
 
 // TODO: set normal config
