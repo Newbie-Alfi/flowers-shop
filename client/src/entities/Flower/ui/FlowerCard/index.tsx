@@ -1,6 +1,6 @@
 import { IFlowerResponse } from "@entities/Flower/api/models";
 import { Typography, CardProps, Box, Badge } from "@mui/material";
-import { BACKEND_URL } from "@shared/api/config";
+import { Carousel } from "@shared/ui/Carousel";
 import { getRealPrice } from "../../utils";
 
 export interface IFlowerCardProps extends CardProps {
@@ -11,7 +11,7 @@ export interface IFlowerCardProps extends CardProps {
 
 export function FlowerCard(props: IFlowerCardProps) {
   const {
-    flower: { name, img, price, sale },
+    flower: { name, images, price, sale },
     children,
     width = 300,
   } = props;
@@ -23,32 +23,26 @@ export function FlowerCard(props: IFlowerCardProps) {
     return undefined;
   })();
 
-  // TODO: I think u r understand why is on the todo
-  const image = img.includes(BACKEND_URL) ? img : BACKEND_URL + img;
-
   return (
     <Box>
-      <Box>
+      <Box sx={{ width, height: width }}>
         <Badge
           badgeContent={saleContent && <Typography>{saleContent}</Typography>}
           color="error"
         >
-          <img
-            style={{
-              width,
-              height: 300,
-              borderRadius: 7,
-              objectFit: "cover",
-            }}
-            alt={name}
-            src={image}
+          <Carousel
+            sx={{ width, height: width }}
+            images={images.map((image) => ({
+              img: image.img,
+              label: image.id.toString(),
+            }))}
           />
         </Badge>
       </Box>
 
       <Box sx={{ pt: 1 }}>
         <Box display="flex" alignItems="center">
-          <Typography variant="h6" sx={{ pr: 2 }}>
+          <Typography variant="h5" sx={{ pr: 2 }}>
             {getRealPrice(price, sale)}р
           </Typography>
           {saleContent && (
@@ -58,7 +52,9 @@ export function FlowerCard(props: IFlowerCardProps) {
           )}
         </Box>
         <Box sx={{ mb: 2 }}>
-          <Typography variant="caption">{name}</Typography>
+          <Typography variant="caption" color="GrayText">
+            {name}
+          </Typography>
         </Box>
 
         {children}

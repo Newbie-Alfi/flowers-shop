@@ -1,13 +1,22 @@
-export interface ISaleResponse {
+import { ISaleResponse } from "@entities/Sale/api/models";
+
+export interface IImageResponse {
+  id: number;
+  img: string;
+}
+
+export interface ICategoryResponse {
+  id: number;
   name: string;
-  number: number | null;
-  percent: number | null;
 }
 
 export interface IFlowerResponse {
   id: number;
   name: string;
+  images: IImageResponse[];
   price: number;
   sale: ISaleResponse | null;
-  img: string;
+  сategories: ICategoryResponse[];
+  is_in_basket: boolean;
+  is_in_wishlist: boolean;
 }

@@ -10,9 +10,11 @@ import "@shared/assets/scss/main.scss";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
-      <ErrorBoundary>
-        <Router />
-      </ErrorBoundary>
+      <div style={{ background: defaultTheme.palette.secondary.dark }}>
+        <ErrorBoundary>
+          <Router />
+        </ErrorBoundary>
+      </div>
     </ThemeProvider>
   </React.StrictMode>
 );

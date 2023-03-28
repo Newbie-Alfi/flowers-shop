@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import { useContext, createContext } from "react";
 import { BasketStore } from ".";
 
-export const BasketContext = React.createContext<BasketStore | undefined>(
-  undefined
-);
+export const BasketContext = createContext<BasketStore | undefined>(undefined);
 
 export const useBasketStore = () => {
   const basketStore = useContext(BasketContext);

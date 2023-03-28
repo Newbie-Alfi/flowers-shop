@@ -1,6 +1,8 @@
 from rest_framework import serializers
+from django.db.models import Q
+from django.contrib.auth.models import User
 
-from .models import Flower, Sale, Basket
+from .models import Flower, Sale, Basket, Wishlist, ProductImageModel, ProductСategory
 
 
 class SaleSerializer(serializers.ModelSerializer):
@@ -9,20 +11,43 @@ class SaleSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImageModel
+        fields = "__all__"
+
+
+class ProductCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductСategory
+        fields = "__all__"
+
+
 class FlowerSerializer(serializers.ModelSerializer):
-    sale = SaleSerializer(source="sale_id")
-    # img = serializers.SerializerMethodField()
-    # print(sale)
+    sale = SaleSerializer()
+    images = ProductImageSerializer(many=True, read_only=True)
+    сategories = ProductCategorySerializer(many=True, read_only=True)
+    is_in_basket = serializers.SerializerMethodField()
+    is_in_wishlist = serializers.SerializerMethodField()
 
     class Meta:
         model = Flower
-        # fields = "__all__"
-        fields = ("name", "img", "id", "price", "sale")
+        fields = ("name", "images", "id", "price", "sale",
+                  "сategories", "is_in_basket", "is_in_wishlist")
 
-    # def get_img(self, car):
-    #     request = self.context.get('request')
-    #     img = car.img.url
-    #     return request.build_absolute_uri(photo_url)
+    def get_is_in_basket(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            user_id = User.objects.get(username=user).id
+            return Basket.objects.filter(Q(user=user_id) & Q(flower=obj.id)).exists()
+        return False
+
+    def get_is_in_wishlist(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            user_id = User.objects.get(username=user).id
+            return Wishlist.objects.filter(Q(user=user_id) & Q(flower=obj.id)).exists()
+        return False
 
 
 class BasketCreateSerializer(serializers.ModelSerializer):
@@ -32,7 +57,7 @@ class BasketCreateSerializer(serializers.ModelSerializer):
 
 
 class BasketSerializer(serializers.ModelSerializer):
-    flower = FlowerSerializer(source="flower_id")
+    flower = FlowerSerializer()
 
     class Meta:
         model = Basket

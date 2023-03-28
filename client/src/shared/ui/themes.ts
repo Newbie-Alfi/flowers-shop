@@ -19,7 +19,7 @@ export const defaultTheme = createTheme({
     danger: orange[500],
   },
   palette: {
-    mode: "dark",
+    mode: "light",
     primary: {
       "50": "#F0F7FF",
       "100": "#C2E0FF",
@@ -46,7 +46,7 @@ export const defaultTheme = createTheme({
       white: "#fff",
     },
     text: {
-      primary: "#fff",
+      primary: "#3399FF",
       secondary: "#B2BAC2",
       disabled: "rgba(255, 255, 255, 0.5)",
     },
@@ -113,7 +113,7 @@ export const defaultTheme = createTheme({
     secondary: {
       main: "#ce93d8",
       light: "#f3e5f5",
-      dark: "#ab47bc",
+      dark: "#021224",
       contrastText: "rgba(0, 0, 0, 0.87)",
     },
     info: {

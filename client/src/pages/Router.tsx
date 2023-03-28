@@ -8,6 +8,7 @@ import MainPage from "./Main";
 import BasketPage from "./Basket";
 import { AboutPage } from "./About";
 import SalesPage from "./Sales";
+import { UserPage } from "./User";
 
 const SignUpPage = lazy(() => import("./SignUp"));
 const SignInPage = lazy(() => import("./SignIn"));
@@ -23,6 +24,7 @@ export function Router() {
             <Route path={ROUTE.ABOUT} element={<AboutPage />} />
             <Route path={ROUTE.SALES} element={<SalesPage />} />
             <Route path={ROUTE.BASKET} element={<BasketPage />} />
+            <Route path={ROUTE.USER} element={<UserPage />} />
           </Route>
           <Route path={ROUTE.SIGN_IN} element={<SignInPage />} />
           <Route path={ROUTE.SIGN_UP} element={<SignUpPage />} />

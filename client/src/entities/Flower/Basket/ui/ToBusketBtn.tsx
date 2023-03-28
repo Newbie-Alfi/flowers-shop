@@ -18,8 +18,9 @@ export function ToBasketBtn(props: IToBasketBtnProps) {
       size="small"
       variant="outlined"
       onClick={() => addFlowerToBasket(flower.id)}
+      disabled={flower.is_in_basket}
     >
-      В корзину
+      {flower.is_in_basket ? "Уже в корзине" : "В корзину"}
     </Button>
   );
 }

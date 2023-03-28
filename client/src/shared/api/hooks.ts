@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+// import { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 type IState<T> = Readonly<{
   value?: T;
   error?: Error | unknown;
   isLoading: boolean;
+  // setSearchParams: Dispatch<SetStateAction<URLSearchParams>>;
 }>;
 
+// TODO: может стоит давать доступ только к объекту api
 /* eslint-disable */
 export function useApi<T extends (...args: any) => Promise<any>>(
   cb: T,
@@ -13,6 +16,7 @@ export function useApi<T extends (...args: any) => Promise<any>>(
 ) {
   type IDataType = Awaited<ReturnType<typeof cb>>;
 
+  // const [searchParams, setSearchParams] = useState(new URLSearchParams());
   const [value, setValue] = useState<IDataType>();
   // TODO: unknown
   const [error, setError] = useState<Error | unknown>();
@@ -33,7 +37,9 @@ export function useApi<T extends (...args: any) => Promise<any>>(
 
   useEffect(() => {
     getData();
+    // }, [...deps, searchParams]);
   }, [...deps]);
 
   return { value, isLoading, error } as IState<IDataType>;
+  // return { value, isLoading, error, setSearchParams } as IState<IDataType>;
 }

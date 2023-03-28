@@ -1,14 +1,15 @@
 import { useMemo } from "react";
 import { observer } from "mobx-react-lite";
-import { Grid, Box, Paper, Typography, Button } from "@mui/material";
+import { Box, Paper, Typography, Button } from "@mui/material";
 import { api } from "@entities/api";
 import { BasketItemCard } from "@entities/Flower/Basket/ui";
 import { BasketContext } from "@entities/Flower/Basket/store/hook";
 import { BasketStore } from "@entities/Flower/Basket/store";
 import { useApi } from "@api/index";
+import { SceletonFlowerCard } from "@entities/Flower/ui/FlowerSceletonCard";
 
 const BasketPage = observer(() => {
-  const { value } = useApi(api.basket.list);
+  const { value, isLoading } = useApi(api.basket.list);
   const basketStore = useMemo(
     () => new BasketStore(value ? value.data.results : []),
     [value?.data.results]
@@ -16,30 +17,29 @@ const BasketPage = observer(() => {
 
   return (
     <BasketContext.Provider value={basketStore}>
-      <Box
-        sx={{ mt: 8, p: 2, width: "100%" }}
-        display="flex"
-        justifyContent="center"
-      >
-        <Grid container spacing={4} md={11}>
-          <Grid item lg={12} xl={8}>
-            <Grid container rowSpacing={6} spacing={4}>
-              {basketStore.basketItems.map((basketItem) => (
-                <Grid item key={basketItem.flower.id}>
-                  <BasketItemCard width="100%" basketItem={basketItem} />
-                </Grid>
+      <Paper sx={{ p: 2, mt: 4, mb: 4 }}>
+        <Box sx={{ mt: 2 }} display="flex" flexDirection="column">
+          <Box display="flex" sx={{ flexWrap: "wrap", gap: 3 }}>
+            {basketStore.basketItems.map((basketItem) => (
+              <BasketItemCard
+                key={basketItem.flower.id}
+                basketItem={basketItem}
+              />
+            ))}
+            {isLoading &&
+              [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11].map((i) => (
+                <SceletonFlowerCard key={i} />
               ))}
-            </Grid>
-          </Grid>
-          <Grid item xs={8} md={3} lg={5} xl={3}>
-            <Paper sx={{ p: 2, minWidth: 100 }}>
-              <Typography sx={{ mb: 2 }} variant="h5">
-                Итого: {basketStore.commonPrice}р
-              </Typography>
-              <Button variant="contained">Заказать</Button>
-            </Paper>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
+      </Paper>
+      <Box display="flex" sx={{ mb: 4 }}>
+        <Paper sx={{ p: 2, width: 300 }}>
+          <Typography sx={{ mb: 2 }} variant="h5">
+            Итого: {basketStore.commonPrice}р
+          </Typography>
+          <Button variant="contained">Заказать</Button>
+        </Paper>
       </Box>
     </BasketContext.Provider>
   );

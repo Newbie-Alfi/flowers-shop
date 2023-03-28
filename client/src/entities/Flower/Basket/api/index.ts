@@ -15,7 +15,7 @@ export const basketApi = () => {
   const add = async (id: IBasketItemResponse["id"]) => {
     const data = new FormData();
 
-    data.set("flower_id", `${id}`);
+    data.set("flower", `${id}`);
 
     await auth.post("basket/", data);
   };

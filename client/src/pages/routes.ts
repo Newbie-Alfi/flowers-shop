@@ -5,4 +5,5 @@ export const ROUTE = {
   SIGN_UP: "sign_up",
   SALES: "sales",
   BASKET: "basket",
+  USER: "user",
 };
