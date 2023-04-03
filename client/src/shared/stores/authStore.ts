@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx";
 
 export class AuthStore {
   // TODO: Бред
-  isAuthicated = !!localStorage.getItem(ACCESS_TOKEN_KEY);
+  private _isAuthicated = !!localStorage.getItem(ACCESS_TOKEN_KEY);
 
   constructor() {
     makeAutoObservable(this);
@@ -12,14 +12,18 @@ export class AuthStore {
   login = async (data: FormData) => {
     await authApi().signIn(data);
 
-    this.isAuthicated = true;
+    this._isAuthicated = true;
   };
 
   logout = () => {
     authApi().logout();
 
-    this.isAuthicated = false;
+    this._isAuthicated = false;
   };
+
+  get isAuthicated() {
+    return this._isAuthicated;
+  }
 }
 
 export const authStore = new AuthStore();

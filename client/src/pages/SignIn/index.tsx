@@ -3,18 +3,18 @@ import {
   Avatar,
   Button,
   TextField,
-  Grid,
   Box,
   Typography,
-  Container,
+  Paper,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { authStore } from "@shared/stores/authStore";
-import { ROUTE } from "../routes";
+import { ROUTE, useRoute } from "../routes";
 
 export default function SignInPage() {
   const navigate = useNavigate();
+  const { toMain, toSignUp } = useRoute();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -28,10 +28,27 @@ export default function SignInPage() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
+    <Box
+      sx={{
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Paper
         sx={{
-          marginTop: 8,
+          pl: 4,
+          pr: 4,
+          pt: 8,
+          pb: 8,
+          maxWidth: 460,
+          minWidth: 300,
+          minHeight: 400,
+          height: "100%",
+          maxHeight: "60vh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -40,7 +57,7 @@ export default function SignInPage() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography sx={{ mb: 4 }} component="h1" variant="h5">
           Войти в аккаунт
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -66,22 +83,21 @@ export default function SignInPage() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 4, mb: 2 }}
           >
             Войти
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to={`${ROUTE.MAIN}`}>На главную</Link>
-            </Grid>
-            <Grid item>
-              <Link to={`/${ROUTE.SIGN_UP}`}>
-                Ещё не зарегистрированы? Создать аккаунт...
-              </Link>
-            </Grid>
-          </Grid>
+          <Box display="flex" justifyContent="space-between">
+            <Typography onClick={toMain} variant="caption">
+              На главную
+            </Typography>
+
+            <Typography onClick={toSignUp} variant="caption">
+              Ещё не зарегистрированы? Создать аккаунт...
+            </Typography>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Paper>
+    </Box>
   );
 }

@@ -1,14 +1,13 @@
-import { Grid, Box } from "@mui/material";
+import { useState } from "react";
+import { Grid, Box, Paper, Typography } from "@mui/material";
 import { api } from "@entities/api";
 import { FlowerCard } from "@entities/Flower/ui/FlowerCard";
 import { ToBasketBtn } from "@entities/Flower/Basket/ui/ToBusketBtn";
 import { useApi } from "@api/index";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import { Pagination } from "@shared/ui/Pagination/Pagination";
 import { SceletonFlowerCard } from "@entities/Flower/ui/FlowerSceletonCard";
-import { LikeBtn } from "@shared/ui/LikeBtn";
-import { useState } from "react";
+// import { LikeBtn } from "@shared/ui/LikeBtn";
+import { AuthView } from "@shared/ui/AuthView";
 
 function SalesPage() {
   const [page, setPage] = useState(1);
@@ -28,8 +27,10 @@ function SalesPage() {
         <Box display="flex" sx={{ flexWrap: "wrap", gap: 3 }}>
           {value?.data.results.map((flower) => (
             <FlowerCard key={flower.id} flower={flower}>
-              <LikeBtn isActive={flower.is_in_wishlist} onClick={() => {}} />
-              <ToBasketBtn flower={flower} />
+              <AuthView>
+                {/* <LikeBtn isActive={flower.is_in_wishlist} onClick={() => {}} /> */}
+                <ToBasketBtn flower={flower} />
+              </AuthView>
             </FlowerCard>
           ))}
           {isLoading &&

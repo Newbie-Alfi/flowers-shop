@@ -29,6 +29,7 @@ export const BasketItemCard = observer((props: IBasketItemCardProps) => {
       await api.basket.updateFields(id, data);
 
       basketStore.changeItem(id, { number: value });
+      // TODO:
     } catch (e) {}
   };
 
@@ -37,6 +38,7 @@ export const BasketItemCard = observer((props: IBasketItemCardProps) => {
       await api.basket.deleteItem(id);
 
       basketStore.deleteItem(id);
+      // TODO:
     } catch (e) {}
   };
 

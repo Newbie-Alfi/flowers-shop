@@ -10,7 +10,12 @@ import "@shared/assets/scss/main.scss";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
-      <div style={{ background: defaultTheme.palette.secondary.dark }}>
+      <div
+        style={{
+          background: defaultTheme.palette.secondary.dark,
+          minHeight: "100vh",
+        }}
+      >
         <ErrorBoundary>
           <Router />
         </ErrorBoundary>

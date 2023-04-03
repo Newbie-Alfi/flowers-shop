@@ -6,16 +6,16 @@ import {
   Grid,
   Box,
   Typography,
-  Container,
+  Paper,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { authApi } from "@api/auth/index";
-import { ROUTE } from "../routes";
+import { ROUTE, useRoute } from "../routes";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-
+  const { toMain, toSignIn } = useRoute();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -30,10 +30,24 @@ export default function SignUpPage() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
+    <Box
+      sx={{
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Paper
         sx={{
-          marginTop: 8,
+          pl: 4,
+          pr: 4,
+          pt: 8,
+          pb: 8,
+          maxWidth: 460,
+          minWidth: 300,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -42,7 +56,7 @@ export default function SignUpPage() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography sx={{ mb: 4 }} component="h1" variant="h5">
           Регистрация
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -111,13 +125,17 @@ export default function SignUpPage() {
           >
             Зарегистрироваться
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to={`/${ROUTE.SIGN_IN}`}>Уже есть аккаунт?</Link>
-            </Grid>
-          </Grid>
+          <Box display="flex" justifyContent="space-between">
+            <Typography onClick={toMain} variant="caption">
+              На главную
+            </Typography>
+
+            <Typography onClick={toSignIn} variant="caption">
+              Уже есть аккаунт?
+            </Typography>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Paper>
+    </Box>
   );
 }

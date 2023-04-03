@@ -6,11 +6,12 @@ import { useApi } from "@api/hooks";
 import { Pagination } from "@shared/ui/Pagination/Pagination";
 import { useMemo, useState } from "react";
 import { SceletonFlowerCard } from "@entities/Flower/ui/FlowerSceletonCard";
-import { LikeBtn } from "@shared/ui/LikeBtn";
+// import { LikeBtn } from "@shared/ui/LikeBtn";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useFlowerStore } from "@entities/Flower/store/hook";
 import { observer } from "mobx-react-lite";
+import { AuthView } from "@shared/ui/AuthView";
 
 // TODO
 export const ProductList = observer(() => {
@@ -43,8 +44,10 @@ export const ProductList = observer(() => {
         <Box display="flex" sx={{ flexWrap: "wrap", gap: 3 }}>
           {productStore.basketItems.map((flower) => (
             <FlowerCard key={flower.id} flower={flower}>
-              <LikeBtn isActive={flower.is_in_wishlist} onClick={() => {}} />
-              <ToBasketBtn flower={flower} />
+              <AuthView>
+                {/* <LikeBtn isActive={flower.is_in_wishlist} onClick={() => {}} /> */}
+                <ToBasketBtn flower={flower} />
+              </AuthView>
             </FlowerCard>
           ))}
           {isLoading &&

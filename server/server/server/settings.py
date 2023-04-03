@@ -1,3 +1,4 @@
+from yookassa import Configuration
 from pathlib import Path
 from datetime import timedelta
 
@@ -43,9 +44,11 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     'rest_framework.authtoken',
     'rest_framework',
-
     "corsheaders",
+
+    'payment',
     'flowers',
+    'buyer',
     'authication',
     'django_filters',
 ]
@@ -93,13 +96,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-ALLOWED_HOSTS = ["*"]
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
@@ -169,3 +165,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+try:
+    from server.local_settings import *
+except ImportError:
+    pass
+
+Configuration.account_id = ACCOUNT_ID
+Configuration.secret_key = SECRET_KEY

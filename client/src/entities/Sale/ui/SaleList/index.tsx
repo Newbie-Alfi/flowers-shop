@@ -16,7 +16,7 @@ export function SaleList() {
       {hasData && (
         <Paper sx={{ p: 2 }}>
           <Typography variant="h5" sx={{ mb: 2 }}>
-            Оксана 90 метров от вас хочет пиво и пошалить...
+            Скидки
           </Typography>
 
           <div className="salelist-con">
