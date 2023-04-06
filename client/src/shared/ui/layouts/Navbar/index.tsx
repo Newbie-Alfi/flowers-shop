@@ -11,13 +11,12 @@ import { ROUTE, useRoute } from "@pages/routes";
 import { api } from "@entities/api";
 import { FlowerContext } from "@entities/Flower/store/hook";
 import { FlowerStore } from "@entities/Flower/store";
-
-//
 import { authStore } from "@shared/stores/authStore";
 import { Footer } from "@shared/ui/Footer";
 import { useApi } from "@shared/api";
-
 import { AuthView } from "@shared/ui/AuthView";
+
+import flowerIcon from "./flovers.jpg";
 
 // interface INavbarProps {
 //   onChange(value: string): void;
@@ -84,7 +83,18 @@ export const Navbar = observer(() => {
               onClick={toMain}
               variant="h4"
             >
-              iKlumba
+              <img
+                style={{
+                  width: 60,
+                  height: 60,
+                  objectFit: "cover",
+                  marginRight: 10,
+                  borderRadius: "50%",
+                }}
+                alt="iKlumba"
+                src={flowerIcon}
+              />
+              {/* iKlumba */}
             </Typography>
             <Box display="flex" sx={{ gap: 2 }}>
               <NavbarItem

@@ -41,7 +41,7 @@ const BasketPage = observer(() => {
         <Paper sx={{ p: 2, mt: 4, mb: 2 }}>
           <Box sx={{ mt: 2 }} display="flex" flexDirection="column">
             <Box display="flex" sx={{ flexWrap: "wrap", gap: 3 }}>
-              {basketStore.basketItems.length < 1 && (
+              {basketStore.basketItems.length < 1 && !isLoading && (
                 <Box>
                   <Typography sx={{ mb: 2 }} variant="h6">
                     В корзине пока пусто
