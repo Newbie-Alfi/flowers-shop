@@ -3,5 +3,5 @@
 
 venv
 __pycache__
-server/media/*
-server/server/local_settings.py
+*/media/*
+local_settings.py
