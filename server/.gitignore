@@ -1,4 +1,0 @@
-venv
-__pycache__
-server/media/*
-server/server/local_settings.py
